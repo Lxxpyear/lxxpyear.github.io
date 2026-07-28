@@ -1,12 +1,21 @@
 ---
 ---
 
-@import "main";
+@use 'abstracts/variables' with (
+  $theme: '{{ site.theme_mode }}'
+);
 
+/* prettier-ignore */
+@use 'main
+{%- if jekyll.environment == 'production' -%}
+  .bundle
+{%- endif -%}
+';
 
+/* Lxxpyear custom colors */
 :root {
-  --link-color: #00c853;
-  --link-hover-color: #00e676;
-  --btn-bg: #00c853;
-  --btn-border-color: #00c853;
+  --link-color: #00a84f;
+  --link-underline-color: #b8e6cc;
+  --checkbox-checked-color: #00a84f;
+  --toc-highlight: #00a84f;
 }
