@@ -41,3 +41,120 @@
 #sidebar .nav-item.active .nav-link i {
   color: #00c853 !important;
 }
+
+/* Home terminal hero */
+.home-hero {
+  overflow: hidden;
+  margin: 1.5rem 0 3rem;
+  margin-top:3rem;
+  border: 1px solid var(--main-border-color);
+  border-radius: 0.9rem;
+  background: #151719;
+  box-shadow: 0 0.8rem 2rem rgb(0 0 0 / 22%);
+}
+
+.terminal-header {
+  display: flex;
+  align-items: center;
+  min-height: 2.6rem;
+  padding: 0 1rem;
+  border-bottom: 1px solid var(--main-border-color);
+  background: #1d2023;
+}
+
+.terminal-dot {
+  width: 0.65rem;
+  height: 0.65rem;
+  margin-right: 0.45rem;
+  border-radius: 50%;
+  background: #596069;
+}
+
+.terminal-title {
+  margin-left: 0.45rem;
+  color: #8a9199;
+  font-family: monospace;
+  font-size: 0.78rem;
+}
+
+.terminal-body {
+  min-height: 22rem;
+  padding: 2.8rem 3rem;
+  font-family: monospace;
+}
+
+.terminal-command {
+  margin-bottom: 0.6rem;
+  color: #a7adb4;
+}
+
+.terminal-prompt,
+.terminal-status span {
+  color: #00c853;
+}
+
+.terminal-body h1 {
+  margin: 0 0 0.45rem;
+  color: #e8eaed;
+  font-size: clamp(2.4rem, 6vw, 3.7rem);
+  letter-spacing: -0.04em;
+}
+
+.terminal-role {
+  margin-bottom: 2rem;
+  color: #a7adb4;
+  font-size: 1rem;
+}
+
+.terminal-interests {
+  margin: 0 0 2.4rem;
+  padding-left: 1.4rem;
+  color: #d0d3d6;
+  line-height: 1.8;
+}
+
+.terminal-interests li::marker {
+  color: #00c853;
+}
+
+.terminal-status {
+  margin-bottom: 0;
+  color: #a7adb4;
+  letter-spacing: 0.03rem;
+}
+
+@media (max-width: 576px) {
+  .terminal-body {
+    min-height: auto;
+    padding: 2rem 1.5rem;
+  }
+}
+
+/* Terminal blinking cursor */
+.terminal-cursor {
+  display: inline-block;
+  width: 0.55rem;
+  height: 1.05rem;
+  margin-left: 0.25rem;
+  vertical-align: -0.15rem;
+  background: #00c853;
+  animation: terminal-blink 0.9s steps(1, end) infinite;
+}
+
+@keyframes terminal-blink {
+  0%,
+  45% {
+    opacity: 1;
+  }
+
+  46%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .terminal-cursor {
+    animation: none;
+  }
+}
