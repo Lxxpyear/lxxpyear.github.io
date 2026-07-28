@@ -19,3 +19,25 @@
   --checkbox-checked-color: #00a84f;
   --toc-highlight: #00a84f;
 }
+
+/* Sidebar accent */
+
+#sidebar .sidebar-bottom a:hover,
+#sidebar .sidebar-bottom button:hover {
+  color: #00e676;
+}
+
+/* Text selection */
+::selection {
+  color: #101214;
+  background: #00c853;
+}
+
+/* Active sidebar menu */
+#sidebar .nav-item.active .nav-link {
+  color: #00c853 !important;
+}
+
+#sidebar .nav-item.active .nav-link i {
+  color: #00c853 !important;
+}
