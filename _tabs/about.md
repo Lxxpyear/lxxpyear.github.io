@@ -3,6 +3,12 @@
 icon: fas fa-info-circle
 order: 4
 ---
+안녕하세요. 사이버보안을 공부하고 있는 Lxxpyear입니다.
 
-> Add Markdown syntax content to file `_tabs/about.md`{: .filepath } and it will show up on this page.
-{: .prompt-tip }
+
+## Contact
+
+- GitHub : https://github.com/Lxxpyear
+- Email : wlghks04@gmail.com
+
+---
