@@ -132,8 +132,8 @@ comments:
   giscus:
     repo: Lxxpyear/lxxpyear.github.io
     repo_id: R_kgDO7ItP4g
-    category: Announcements
-    category_id: DIC_kwDO7ItP4s4DCJxq
+    category: General
+    category_id: DIC_kwDOTltP4s4DCJxr
     mapping: pathname
     strict: 0
     input_position: bottom
