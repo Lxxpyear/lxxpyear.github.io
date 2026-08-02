@@ -345,7 +345,10 @@
 
 /* Post code blocks */
 .content .highlight {
-  overflow: hidden;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+
   border: 1px solid var(--main-border-color);
   border-radius: 0.75rem;
   background: #111315;
