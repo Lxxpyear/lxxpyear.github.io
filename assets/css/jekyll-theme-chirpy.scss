@@ -14,32 +14,32 @@
 
 /* Lxxpyear custom colors */
 :root {
-  --link-color: #00a84f;
-  --link-underline-color: #b8e6cc;
-  --checkbox-checked-color: #00a84f;
-  --toc-highlight: #00a84f;
+  --link-color:  #3282a8;
+  --link-underline-color: #d7edf5;
+  --checkbox-checked-color:  #3282a8;
+  --toc-highlight:  #3282a8;
 }
 
 /* Sidebar accent */
 
 #sidebar .sidebar-bottom a:hover,
 #sidebar .sidebar-bottom button:hover {
-  color: #00e676;
+  color: #69b7d1;
 }
 
 /* Text selection */
 ::selection {
   color: #101214;
-  background: #00c853;
+  background: #a9d8e8;
 }
 
 /* Active sidebar menu */
 #sidebar .nav-item.active .nav-link {
-  color: #00c853 !important;
+  color: #3282a8 !important;
 }
 
 #sidebar .nav-item.active .nav-link i {
-  color: #00c853 !important;
+  color: #3282a8 !important;
 }
 
 /* Home terminal hero */
@@ -90,7 +90,7 @@
 
 .terminal-prompt,
 .terminal-status span {
-  color: #00c853;
+  color: #3282a8;
 }
 
 .terminal-body h1 {
@@ -114,7 +114,7 @@
 }
 
 .terminal-interests li::marker {
-  color: #00c853;
+  color: #3282a8;
 }
 
 .terminal-status {
@@ -137,7 +137,7 @@
   height: 1.05rem;
   margin-left: 0.25rem;
   vertical-align: -0.15rem;
-  background: #00c853;
+  background: #3282a8;
   animation: terminal-blink 0.9s steps(1, end) infinite;
 }
 
@@ -180,7 +180,7 @@
 }
 
 .home-post-card:hover {
-  border-color: rgb(0 200 83 / 55%);
+  border-color: rgb(50 130 168 / 55%);
   transform: translateY(-2px);
   box-shadow: 0 0.8rem 2rem rgb(0 0 0 / 18%);
 }
@@ -233,10 +233,10 @@
   display: inline-flex;
   align-items: center;
   padding: 0.2rem 0.55rem;
-  border: 1px solid rgb(0 200 83 / 35%);
+  border: 1px solid rgb(50 130 168 / 35%);
   border-radius: 999px;
-  color: #00c853;
-  background: rgb(0 200 83 / 8%);
+  color: #3282a8;
+  background: rgb(50 130 168 / 8%);
   font-family: monospace;
   font-size: 0.73rem;
   font-weight: 600;
@@ -253,7 +253,7 @@
 }
 
 .home-post-card:hover .home-post-title {
-  color: #00c853 !important;
+  color: #3282a8 !important;
 }
 
 .home-post-description {
@@ -285,11 +285,11 @@
 }
 
 .home-post-date i {
-  color: #00c853;
+  color: #3282a8;
 }
 
 .home-post-arrow {
-  color: #00c853;
+  color: #3282a8;
   font-size: 1.15rem;
   transition: transform 0.2s ease;
 }
@@ -394,8 +394,8 @@
 }
 
 .code-header button:hover {
-  color: #00c853;
-  background: rgb(0 200 83 / 8%);
+  color: #3282a8;
+  background: rgb(50 130 168 / 8%);
 }
 
 /* Line numbers */
@@ -407,9 +407,20 @@
 /* Inline code */
 .content :not(pre) > code {
   padding: 0.15rem 0.38rem;
-  border: 1px solid rgb(0 200 83 / 20%);
+  border: 1px solid rgb(50 130 168 / 20%);
   border-radius: 0.3rem;
-  color: #10c25a;
-  background: rgb(0 200 83 / 7%);
+  color: #3282a8;
+  background: rgb(50 130 168 / 7%);
   font-size: 0.93em;
+}
+
+/* 코드 블록 숫자 색상 */
+.highlight .m,
+.highlight .mb,
+.highlight .mf,
+.highlight .mh,
+.highlight .mi,
+.highlight .il,
+.highlight .mo {
+  color: #3282a8 !important;
 }
