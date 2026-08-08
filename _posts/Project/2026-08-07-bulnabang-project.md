@@ -7,6 +7,7 @@ tags: [nextjs, supabase, vercel, web]
 ---
 
 ![불나방 메인 화면](/assets/img/posts/Projects/bulnabang-main.png)
+{: width="709" height="1209" }
 _불행을 익명으로 남기고 다른 사람의 글을 무작위로 만나는 불나방의 메인 화면_
 
 ## 들어가며 — 불행을 나누면 조금은 가벼워질 수 있을까
@@ -135,14 +136,26 @@ _불행을 익명으로 남기고 다른 사람의 글을 무작위로 만나는
 
 글을 작성하는 화면에는 입력창과 글자 수, 선택한 매개체, 전송 동작만 남겼다. 열람 화면은 무작위로 선택된 글 한 편에 집중하고, 필요할 때 바로 신고할 수 있게 구성했다. 설정에서는 도깨비불, 종이배, 종이비행기, 나뭇잎, 유리병 속 쪽지 중 메인 화면에 표시할 매개체를 바꿀 수 있다.
 
-![불나방 작성 화면](/assets/img/posts/Projects/bulnabang-write.png)
-_300자 제한과 24시간 삭제 안내를 보여 주는 작성 화면_
-
-![불나방 열람 화면](/assets/img/posts/Projects/bulnabang-read.png)
-_다른 사용자의 글 한 편에 집중하도록 구성한 열람 화면_
-
-![불나방 설정 화면](/assets/img/posts/Projects/bulnabang-settings.png)
-_다섯 가지 매개체를 선택할 수 있는 설정 화면_
+<div class="bulnabang-screen-grid">
+  <figure>
+    <a href="/assets/img/posts/Projects/bulnabang-write.png">
+      <img src="/assets/img/posts/Projects/bulnabang-write.png" alt="불나방 작성 화면" width="709" height="1209" loading="lazy">
+    </a>
+    <figcaption>300자 제한과 24시간 삭제 안내를 보여 주는 작성 화면</figcaption>
+  </figure>
+  <figure>
+    <a href="/assets/img/posts/Projects/bulnabang-read.png">
+      <img src="/assets/img/posts/Projects/bulnabang-read.png" alt="불나방 열람 화면" width="709" height="1209" loading="lazy">
+    </a>
+    <figcaption>다른 사용자의 글 한 편에 집중하도록 구성한 열람 화면</figcaption>
+  </figure>
+  <figure>
+    <a href="/assets/img/posts/Projects/bulnabang-settings.png">
+      <img src="/assets/img/posts/Projects/bulnabang-settings.png" alt="불나방 설정 화면" width="709" height="1209" loading="lazy">
+    </a>
+    <figcaption>다섯 가지 매개체를 선택할 수 있는 설정 화면</figcaption>
+  </figure>
+</div>
 
 처음 사용하는 사람에게는 서비스의 성격과 주의 사항을 안내하고 이용 약관 동의를 받는다. 익명 서비스라고 해서 사용 규칙까지 보이지 않아서는 안 된다고 생각했기 때문이다.
 
@@ -163,6 +176,7 @@ _다섯 가지 매개체를 선택할 수 있는 설정 화면_
 전체 흐름을 단순화하면 다음과 같다.
 
 ![불나방 게시글 작성 요청 처리 흐름도](/assets/img/posts/Projects/bulnabang-request-flow.svg)
+{: width="800" height="2020" }
 _사용자 입력부터 검사, 데이터베이스 저장, 응답 반환까지의 처리 흐름_
 
 브라우저가 300자 제한을 검사하더라도 서버에서 같은 검사를 다시 수행했다. 클라이언트 코드는 사용자가 직접 바꾸거나 우회할 수 있기 때문이다. 신뢰할 수 없는 입력은 서버 경계에서 다시 확인해야 한다.
@@ -296,6 +310,7 @@ export const DAILY_READ_LIMIT = 5;
 - 같은 글을 이미 신고한 적이 있는가
 
 ![불나방 Supabase 데이터 구조](/assets/img/posts/Projects/bulnabang-data-model.svg)
+{: width="800" height="2384" }
 _게시글·열람·신고 기록과 요청 제한 테이블로 구성된 데이터 구조_
 
 ### 7.4 여러 요청이 동시에 들어오는 상황을 처리하다

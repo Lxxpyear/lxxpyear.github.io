@@ -6,9 +6,10 @@
 - type: twitter
   icon: "fa-brands fa-x-twitter"
 
-- type: email
+- type: gmail
   icon: "fas fa-envelope"
-  noblank: true # open link in current tab
+  url: "https://mail.google.com/mail/?view=cm&fs=1&to=wlghks04@gmail.com"
+  tooltip: "이메일 보내기"
 
 - type: rss
   icon: "fas fa-rss"
