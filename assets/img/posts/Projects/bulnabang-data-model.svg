@@ -1,0 +1,223 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="2384" viewBox="0 0 800 2384" role="img" aria-labelledby="title desc">
+  <title id="title">불나방 Supabase 데이터 구조</title>
+  <desc id="desc">posts는 post_reads 및 post_reports와 post_id를 기준으로 논리적인 일대다 관계를 이룬다. api_rate_limits는 게시글과 직접 연결되지 않고 상태 확인, 작성, 열람, 신고의 요청 횟수를 독립적으로 관리한다. 작성, 열람, 신고에는 브라우저 ID의 SHA-256 식별값을 사용하고 요청 제한에는 요청 출처의 HMAC 식별값을 사용한다. 그림에는 주요 컬럼만 표시했다.</desc>
+
+  <defs>
+    <style>
+      text { font-family: "Noto Sans KR", Pretendard, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif; }
+      .title { fill: #f3f5f8; font-size: 40px; font-weight: 700; letter-spacing: -1px; }
+      .subtitle { fill: #929dac; font-size: 24px; font-weight: 500; letter-spacing: -0.2px; }
+      .scope { fill: #8290a5; font-size: 23px; font-weight: 500; letter-spacing: -0.1px; }
+      .section { fill: #8290a5; font-size: 23px; font-weight: 700; letter-spacing: 2px; }
+      .table-name { fill: #f0f3f7; font-size: 32px; font-weight: 700; }
+      .table-role { fill: #9ca8b8; font-size: 23px; font-weight: 500; }
+      .field { fill: #dbe4ee; font-size: 23px; font-weight: 600; }
+      .field-note { fill: #98a5b5; font-size: 23px; font-weight: 500; }
+      .badge { fill: #0a0d14; font-size: 23px; font-weight: 700; }
+      .badge-outline { fill: #a9bdd5; font-size: 23px; font-weight: 700; }
+      .relation { fill: #b4c4d5; font-size: 23px; font-weight: 700; }
+      .note-title { fill: #dce5ee; font-size: 25px; font-weight: 700; }
+      .note-copy { fill: #9ca8b8; font-size: 23px; font-weight: 500; }
+      .code { font-family: "DejaVu Sans Mono", Consolas, monospace; }
+    </style>
+  </defs>
+
+  <rect width="800" height="2384" fill="#090c13"/>
+  <rect x="24" y="24" width="752" height="2336" rx="24" fill="none" stroke="#202633" stroke-width="2"/>
+
+  <!-- Header -->
+  <g transform="translate(56 60)" fill="none" stroke="#a9bdd5" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round">
+    <ellipse cx="25" cy="7" rx="25" ry="7"/>
+    <path d="M0 7v34c0 5 11 7 25 7s25-2 25-7V7M0 24c0 5 11 7 25 7s25-2 25-7"/>
+  </g>
+  <text x="120" y="92" class="title">Supabase 데이터 구조</text>
+  <text x="120" y="132" class="subtitle">게시글을 중심으로 열람·신고 기록을 연결하고,</text>
+  <text x="120" y="162" class="subtitle">요청 제한은 별도 테이블에서 관리한다.</text>
+  <text x="64" y="205" class="scope">주요 컬럼만 표시 · 1:N 선은 코드에서 사용하는 논리 관계</text>
+
+  <!-- Legend -->
+  <g transform="translate(64 226)">
+    <rect x="0" y="0" width="56" height="34" rx="9" fill="#a9bdd5"/>
+    <text x="28" y="24" text-anchor="middle" class="badge">PK</text>
+    <text x="72" y="25" class="field-note">기본 키</text>
+
+    <rect x="328" y="0" width="64" height="34" rx="9" fill="none" stroke="#829bb6" stroke-width="2"/>
+    <text x="360" y="24" text-anchor="middle" class="badge-outline">REF</text>
+    <text x="408" y="25" class="field-note">논리 참조</text>
+
+    <rect x="0" y="50" width="104" height="34" rx="9" fill="#151d28" stroke="#39485a"/>
+    <text x="52" y="74" text-anchor="middle" class="badge-outline">SHA-256</text>
+    <text x="120" y="75" class="field-note">브라우저 식별</text>
+
+    <rect x="328" y="50" width="88" height="34" rx="9" fill="#151d28" stroke="#39485a"/>
+    <text x="372" y="74" text-anchor="middle" class="badge-outline">HMAC</text>
+    <text x="432" y="75" class="field-note">요청 출처</text>
+  </g>
+
+  <!-- Core tables -->
+  <text x="64" y="350" class="section">CORE TABLES</text>
+  <line x1="250" y1="343" x2="736" y2="343" stroke="#252c39" stroke-width="2"/>
+
+  <!-- posts -->
+  <g>
+    <rect x="64" y="378" width="672" height="476" rx="18" fill="#10151f" stroke="#53677d" stroke-width="2"/>
+    <path d="M64 396a18 18 0 0 1 18-18h636a18 18 0 0 1 18 18v68H64z" fill="#121925"/>
+    <path d="M64 464h672" stroke="#2d3746" stroke-width="2"/>
+    <text x="96" y="417" class="table-name code">posts</text>
+    <text x="96" y="448" class="table-role">본문 · 상태 · 보관 시간</text>
+
+    <rect x="88" y="477" width="56" height="34" rx="9" fill="#a9bdd5"/>
+    <text x="116" y="501" text-anchor="middle" class="badge">PK</text>
+    <text x="220" y="501" class="field code">id</text>
+    <text x="470" y="501" class="field-note code">uuid</text>
+    <line x1="88" y1="518" x2="712" y2="518" stroke="#252e3b"/>
+
+    <text x="220" y="555" class="field code">content</text>
+    <text x="470" y="555" class="field-note">본문 · 최대 300자</text>
+    <line x1="88" y1="572" x2="712" y2="572" stroke="#252e3b"/>
+
+    <text x="220" y="609" class="field code">symbol_type</text>
+    <text x="470" y="609" class="field-note">선택한 매개체</text>
+    <line x1="88" y1="626" x2="712" y2="626" stroke="#252e3b"/>
+
+    <rect x="88" y="639" width="104" height="34" rx="9" fill="#151d28" stroke="#39485a"/>
+    <text x="140" y="663" text-anchor="middle" class="badge-outline">SHA-256</text>
+    <text x="220" y="663" class="field code">author_hash</text>
+    <text x="470" y="663" class="field-note">작성자 식별</text>
+    <line x1="88" y1="680" x2="712" y2="680" stroke="#252e3b"/>
+
+    <text x="220" y="717" class="field code">created_at</text>
+    <text x="470" y="717" class="field-note">작성 시각</text>
+    <line x1="88" y1="734" x2="712" y2="734" stroke="#252e3b"/>
+
+    <text x="220" y="771" class="field code">expires_at</text>
+    <text x="470" y="771" class="field-note">만료 시각</text>
+    <line x1="88" y1="788" x2="712" y2="788" stroke="#252e3b"/>
+
+    <text x="220" y="825" class="field code">hidden_at</text>
+    <text x="470" y="825" class="field-note">숨김 시각</text>
+  </g>
+
+  <!-- posts 1:N post_reads -->
+  <g>
+    <path d="M400 854v90" fill="none" stroke="#829bb6" stroke-width="2.5"/>
+    <circle cx="400" cy="876" r="18" fill="#111821" stroke="#829bb6" stroke-width="2"/>
+    <text x="400" y="883" text-anchor="middle" class="relation">1</text>
+    <circle cx="400" cy="922" r="18" fill="#111821" stroke="#829bb6" stroke-width="2"/>
+    <text x="400" y="929" text-anchor="middle" class="relation">N</text>
+    <path d="M418 922h18" fill="none" stroke="#829bb6" stroke-width="2"/>
+    <rect x="436" y="904" width="254" height="36" rx="18" fill="#111722" stroke="#303a49"/>
+    <text x="563" y="929" text-anchor="middle" class="relation code">post_reads.post_id</text>
+  </g>
+
+  <!-- post_reads -->
+  <g>
+    <rect x="64" y="944" width="672" height="310" rx="18" fill="#10151f" stroke="#39485a" stroke-width="2"/>
+    <path d="M64 962a18 18 0 0 1 18-18h636a18 18 0 0 1 18 18v68H64z" fill="#111822"/>
+    <path d="M64 1030h672" stroke="#2d3746" stroke-width="2"/>
+    <text x="96" y="983" class="table-name code">post_reads</text>
+    <text x="96" y="1014" class="table-role">열람 이력 · 중복 열람과 하루 5회 제한 판단</text>
+
+    <rect x="88" y="1044" width="64" height="34" rx="9" fill="none" stroke="#829bb6" stroke-width="2"/>
+    <text x="120" y="1068" text-anchor="middle" class="badge-outline">REF</text>
+    <text x="220" y="1068" class="field code">post_id</text>
+    <text x="470" y="1068" class="field-note code">→ posts.id</text>
+    <line x1="88" y1="1084" x2="712" y2="1084" stroke="#252e3b"/>
+
+    <rect x="88" y="1098" width="104" height="34" rx="9" fill="#151d28" stroke="#39485a"/>
+    <text x="140" y="1122" text-anchor="middle" class="badge-outline">SHA-256</text>
+    <text x="220" y="1122" class="field code">reader_hash</text>
+    <text x="470" y="1122" class="field-note">열람자 식별</text>
+    <line x1="88" y1="1138" x2="712" y2="1138" stroke="#252e3b"/>
+
+    <text x="220" y="1176" class="field code">read_at</text>
+    <text x="470" y="1176" class="field-note">열람 시각</text>
+    <line x1="88" y1="1192" x2="712" y2="1192" stroke="#252e3b"/>
+
+    <text x="220" y="1230" class="field code">read_date_kst</text>
+    <text x="470" y="1230" class="field-note">한국 기준 날짜</text>
+  </g>
+
+  <!-- posts 1:N post_reports -->
+  <g>
+    <path d="M400 1254v90" fill="none" stroke="#829bb6" stroke-width="2.5"/>
+    <circle cx="400" cy="1276" r="18" fill="#111821" stroke="#829bb6" stroke-width="2"/>
+    <text x="400" y="1283" text-anchor="middle" class="relation">1</text>
+    <circle cx="400" cy="1322" r="18" fill="#111821" stroke="#829bb6" stroke-width="2"/>
+    <text x="400" y="1329" text-anchor="middle" class="relation">N</text>
+    <path d="M418 1322h18" fill="none" stroke="#829bb6" stroke-width="2"/>
+    <rect x="436" y="1304" width="276" height="36" rx="18" fill="#111722" stroke="#303a49"/>
+    <text x="574" y="1329" text-anchor="middle" class="relation code">post_reports.post_id</text>
+  </g>
+
+  <!-- post_reports -->
+  <g>
+    <rect x="64" y="1344" width="672" height="256" rx="18" fill="#10151f" stroke="#39485a" stroke-width="2"/>
+    <path d="M64 1362a18 18 0 0 1 18-18h636a18 18 0 0 1 18 18v68H64z" fill="#111822"/>
+    <path d="M64 1430h672" stroke="#2d3746" stroke-width="2"/>
+    <text x="96" y="1383" class="table-name code">post_reports</text>
+    <text x="96" y="1414" class="table-role">신고 이력 · 본인 및 중복 신고 차단</text>
+
+    <rect x="88" y="1444" width="64" height="34" rx="9" fill="none" stroke="#829bb6" stroke-width="2"/>
+    <text x="120" y="1468" text-anchor="middle" class="badge-outline">REF</text>
+    <text x="220" y="1468" class="field code">post_id</text>
+    <text x="470" y="1468" class="field-note code">→ posts.id</text>
+    <line x1="88" y1="1484" x2="712" y2="1484" stroke="#252e3b"/>
+
+    <rect x="88" y="1498" width="104" height="34" rx="9" fill="#151d28" stroke="#39485a"/>
+    <text x="140" y="1522" text-anchor="middle" class="badge-outline">SHA-256</text>
+    <text x="220" y="1522" class="field code">reporter_hash</text>
+    <text x="470" y="1522" class="field-note">신고자 식별</text>
+    <line x1="88" y1="1538" x2="712" y2="1538" stroke="#252e3b"/>
+
+    <text x="220" y="1576" class="field code">reported_at</text>
+    <text x="470" y="1576" class="field-note">신고 시각</text>
+  </g>
+
+  <!-- Independent rate-limit table -->
+  <text x="64" y="1668" class="section">INDEPENDENT TABLE</text>
+  <line x1="330" y1="1661" x2="736" y2="1661" stroke="#252c39" stroke-width="2"/>
+
+  <g>
+    <rect x="64" y="1696" width="672" height="374" rx="18" fill="#10151f" stroke="#39485a" stroke-width="2"/>
+    <path d="M64 1714a18 18 0 0 1 18-18h636a18 18 0 0 1 18 18v68H64z" fill="#111822"/>
+    <path d="M64 1782h672" stroke="#2d3746" stroke-width="2"/>
+    <text x="96" y="1735" class="table-name code">api_rate_limits</text>
+    <text x="96" y="1766" class="table-role">게시글과 연결 없이 동작별 요청 횟수 관리</text>
+
+    <rect x="88" y="1803" width="56" height="34" rx="9" fill="#a9bdd5"/>
+    <text x="116" y="1827" text-anchor="middle" class="badge">PK</text>
+    <text x="220" y="1827" class="field code">action</text>
+    <text x="470" y="1814" class="field-note">상태 확인 · 작성</text>
+    <text x="470" y="1840" class="field-note">열람 · 신고</text>
+    <line x1="88" y1="1852" x2="712" y2="1852" stroke="#252e3b"/>
+
+    <rect x="88" y="1871" width="112" height="34" rx="9" fill="#151d28" stroke="#39485a"/>
+    <text x="144" y="1895" text-anchor="middle" class="badge-outline">PK·HMAC</text>
+    <text x="220" y="1895" class="field code">subject_hash</text>
+    <text x="470" y="1895" class="field-note">요청 출처 식별</text>
+    <line x1="88" y1="1906" x2="712" y2="1906" stroke="#252e3b"/>
+
+    <text x="220" y="1942" class="field code">window_started_at</text>
+    <text x="470" y="1942" class="field-note">제한 구간 시작</text>
+    <line x1="88" y1="1960" x2="712" y2="1960" stroke="#252e3b"/>
+
+    <text x="220" y="1996" class="field code">request_count</text>
+    <text x="470" y="1996" class="field-note">현재 요청 횟수</text>
+    <line x1="88" y1="2014" x2="712" y2="2014" stroke="#252e3b"/>
+
+    <text x="220" y="2050" class="field code">updated_at</text>
+    <text x="470" y="2050" class="field-note">마지막 갱신 시각</text>
+  </g>
+
+  <!-- Identity note -->
+  <g>
+    <rect x="64" y="2100" width="672" height="230" rx="16" fill="#0e141d" stroke="#344052" stroke-width="2"/>
+    <circle cx="104" cy="2215" r="15" fill="none" stroke="#829bb6" stroke-width="2"/>
+    <path d="M104 2208v10M104 2223h.1" stroke="#829bb6" stroke-width="2.5" stroke-linecap="round"/>
+    <text x="144" y="2154" class="note-title">사용자 테이블은 두지 않는다</text>
+    <text x="144" y="2195" class="note-copy">작성·열람·신고: 브라우저 ID의 SHA-256</text>
+    <text x="144" y="2230" class="note-copy">요청 제한: 요청 출처의 HMAC</text>
+    <text x="144" y="2265" class="note-copy">두 식별값은 서로 관계 키로 연결하지 않는다.</text>
+  </g>
+</svg>

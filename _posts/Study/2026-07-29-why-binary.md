@@ -37,7 +37,7 @@ description: "컴퓨터가 2진수를 사용하는 이유와 16진수가 보안 
 
 숫자 **2468**은 다음과 같이 표현할 수 있다.
 
-![그림 1. 10진수의 자리값](/assets/img/posts/why-binary/01-decimal.png)
+![그림 1. 10진수의 자리값](/assets/img/posts/Study/why-binary/01-decimal.png)
 *그림 1. 10진수의 자리값*
 
 즉,
@@ -70,7 +70,7 @@ description: "컴퓨터가 2진수를 사용하는 이유와 16진수가 보안 
 
 컴퓨터는 이 두 상태를 각각 **ON = 1**, **OFF = 0**으로 표현한다.
 
-![그림 2. 전기 신호와 비트](/assets/img/posts/why-binary/02-onoff.png)
+![그림 2. 전기 신호와 비트](/assets/img/posts/Study/why-binary/02-onoff.png)
 *그림 2. 전기 신호와 비트*
 
 만약 컴퓨터가 10진수를 그대로 사용하려면 `0`부터 `9`까지 총 10개의 서로 다른 전압을 안정적으로 구분해야 한다.
@@ -125,7 +125,7 @@ description: "컴퓨터가 2진수를 사용하는 이유와 16진수가 보안 
 
 이를 **1 Byte(바이트)** 라고 하며, 메모리와 파일의 데이터도 대부분 이 단위를 기준으로 저장된다.
 
-![그림 3. 8개의 비트](/assets/img/posts/why-binary/03-8bits.png)
+![그림 3. 8개의 비트](/assets/img/posts/Study/why-binary/03-8bits.png)
 *그림 3. 8개의 비트(1 Byte)*
 
 ---
@@ -181,14 +181,14 @@ FF₁₆
 
 그 이유는 **4비트가 16진수 한 자리와 정확히 대응하기 때문**이다.
 
-![그림 4. 2진수를 16진수로 변환하는 과정](/assets/img/posts/why-binary/04-binary-to-hex.png)
+![그림 4. 2진수를 16진수로 변환하는 과정](/assets/img/posts/Study/why-binary/04-binary-to-hex.png)
 *그림 4. 2진수를 16진수로 변환하는 과정*
 
 따라서 1 Byte(8 bit)는 16진수 두 자리로 표현할 수 있다.
 
 예를 들어 Hex Dump에서는 다음과 같은 형태로 데이터를 확인할 수 있다.
 
-![그림 5. Hex Dump 예시](/assets/img/posts/why-binary/05-hexdump.png)
+![그림 5. Hex Dump 예시](/assets/img/posts/Study/why-binary/05-hexdump.png)
 *그림 5. Hex Dump 예시*
 
 이처럼 1 Byte(8 bit)는 16진수 두 자리로 표현되므로,
